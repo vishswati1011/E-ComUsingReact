@@ -4,7 +4,7 @@ import './collection-item.style.scss'
 import logo from './images/shop-img/hats/brown-cowboy.png' 
 const CollectionItem =({id,name,price,imageUrl}) => {
     var image=imageUrl;
-    console.log("url",imageUrl,image)
+    // console.log("url",imageUrl,image)
 
     return(
     <div className="collection-item">
