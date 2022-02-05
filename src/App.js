@@ -37,7 +37,7 @@ class App extends React.Component{
   return (
     <div>
       <Router>
-      <Header/>
+      <Header currentUser={this.state.currentUser}/>
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/shop/hats" element={<HatsPage />} />
