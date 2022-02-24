@@ -5,7 +5,7 @@ import ShopPage  from './pages/shop/shop.component';
 import Header from './components/header/header.component'
 import SignInAndSignUpPage from './pages/sign-in-signup/sign-in-sign-up.component';
 import './App.css';
-import {auth } from './firebase/firebase.utils'
+import {auth,createUserProfileDocument } from './firebase/firebase.utils'
 
 const HatsPage = () => (
   <div>
@@ -25,9 +25,10 @@ class App extends React.Component{
   //this use because we does'nt want to leal info of user
   unsubscribeFromAuth =null 
   componentDidMount (){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user =>{
+      console.log(user); //it contain email name phonenumber  and all detail
       this.setState({currentUser:user})
-      console.log(user);  //this is the last user
+      createUserProfileDocument(user);
     })
   }
   componentWillUnmount () {
