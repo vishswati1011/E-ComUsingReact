@@ -18,10 +18,10 @@ const Header = ({currentUser}) =>{
                 <NavLink className="option" to='/shop'>
                     CONTACT
                 </NavLink>
-                {currentUser ? 
-                <div className="option" onClick={()=>auth.signOut()}>SIGN OUT</div>
-                :
-                <Link className="option" to='/signin'>SIGN IN</Link>}
+                {!currentUser ? 
+                 <Link className="option" to='/signin'>SIGN IN</Link>
+                :<div className="option" onClick={()=>auth.signOut()}>SIGN OUT</div>
+               }
             </div>
         </div>
     )
