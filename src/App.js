@@ -24,11 +24,38 @@ class App extends React.Component{
 
   //this use because we does'nt want to leal info of user
   unsubscribeFromAuth =null 
+  // below code is used for store user data onto firebase firestore
+  // componentDidMount (){
+  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async user =>{
+  //     console.log(user); //it contain email name phonenumber  and all detail
+  //     this.setState({currentUser:user})
+  //     createUserProfileDocument(user);
+  //   })
+  // }
+
+  //below code is used to store user data in our app
   componentDidMount (){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user =>{
-      console.log(user); //it contain email name phonenumber  and all detail
-      this.setState({currentUser:user})
-      createUserProfileDocument(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth =>{
+      // this.setState({currentUser:user})
+      
+      if(userAuth){
+        const userRef =await  createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapshot =>{
+        console.log(snapshot); //it contain email name phonenumber  and all detail
+        console.log(snapshot.data());
+        this.setState({
+          currentUser:{
+            id:snapshot.id,
+            ...snapshot.data()
+          }
+        },()=>{
+          console.log(this.state);
+        })
+        });
+        
+
+      }
     })
   }
   componentWillUnmount () {
