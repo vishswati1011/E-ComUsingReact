@@ -9,23 +9,28 @@ import './header.style.scss'
 
 const Header = ({currentUser,hidden}) =>{
 
+    const handleLogout =() =>{
+        auth.signOut();
+        console.log("logout===============")
+        window.location.replace('/');
+    }
     return(
         <div className="header">
             <NavLink className="logo-container" to="/">
                 <Logo className="logo" />
             </NavLink>
             <div className="options">
+                <NavLink className="option" to='/'>
+                    HOME
+                </NavLink>
                 <NavLink className="option" to='/shop'>
                     SHOP
                 </NavLink>
-                <NavLink className="option" to='/shop'>
-                    CONTACT
-                </NavLink>
                 {currentUser ? 
-                 <div className="option" onClick={()=>auth.signOut()}>
+                 <div className="option" onClick={()=>handleLogout()}>
                      SIGN OUT
                      </div>:
-                 <Link className="option" to='/signin'>SIGN IN</Link>
+                 <Link className="option" to='/'>SIGN IN</Link>
                 }
                 <CartIcon/>
             </div>
