@@ -5,7 +5,11 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 import {auth } from '../../firebase/firebase.utils'
 import { connect } from "react-redux";
+
+import { createStructuredSelector } from "reselect";
+import {selectCartHidden} from '../../redux/cart/cart.selectors'
 import './header.style.scss'
+import { selectCurrentUser } from "../../redux/user/user.selector";
 
 const Header = ({currentUser,hidden}) =>{
 
@@ -39,9 +43,21 @@ const Header = ({currentUser,hidden}) =>{
     )
 }
 
-// here state is rootReducer and userReducer then variable 
-const mapStateToProps = ({user :{currentUser},cart:{hidden}}) =>({
-    currentUser,
-    hidden
+// here state is rootReducer and userReducer then variable  it is without selector
+// const mapStateToProps = ({user :{currentUser},cart:{hidden}}) =>({
+//     currentUser,
+//     hidden
+// })
+
+//after use selector
+// const mapStateToProps = (state) =>({
+//     currentUser:selectCurrentUser(state),
+//     hidden:selectCartHidden(state)
+// })
+
+//if we use createStructuredSelector
+const mapStateToProps = createStructuredSelector({
+    currentUser:selectCurrentUser,
+    hidden:selectCartHidden
 })
 export default connect(mapStateToProps)(Header);
