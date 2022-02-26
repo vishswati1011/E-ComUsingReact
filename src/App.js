@@ -6,7 +6,8 @@ import Header from './components/header/header.component'
 import SignInAndSignUpPage from './pages/sign-in-signup/sign-in-sign-up.component';
 import './App.css';
 import {auth,createUserProfileDocument } from './firebase/firebase.utils'
-
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.action';
 const HatsPage = () => (
   <div>
     <h1>Hats Page</h1>
@@ -14,48 +15,28 @@ const HatsPage = () => (
 );
 
 class App extends React.Component{
-
-  constructor(){
-    super();
-    this.state ={
-      currentUser:null
-    }
-  }
-
-  //this use because we does'nt want to leal info of user
   unsubscribeFromAuth =null 
-  // below code is used for store user data onto firebase firestore
-  // componentDidMount (){
-  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async user =>{
-  //     console.log(user); //it contain email name phonenumber  and all detail
-  //     this.setState({currentUser:user})
-  //     createUserProfileDocument(user);
-  //   })
-  // }
 
-  //below code is used to store user data in our app
   componentDidMount (){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth =>{
-      // this.setState({currentUser:user})
-      
-      if(userAuth){
-        const userRef =await  createUserProfileDocument(userAuth);
+    
+    const {setCurrentUser} =this.props;
 
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth =>{
+  
+      if(userAuth){
+
+        const userRef =await  createUserProfileDocument(userAuth);
         userRef.onSnapshot(snapshot =>{
-        console.log(snapshot); //it contain email name phonenumber  and all detail
-        console.log(snapshot.data());
-        this.setState({
-          currentUser:{
+        setCurrentUser({
             id:snapshot.id,
             ...snapshot.data()
-          }
-        },()=>{
-          console.log(this.state);
         })
         });
         
 
       }
+      setCurrentUser(userAuth)
+
     })
   }
   componentWillUnmount () {
@@ -65,7 +46,7 @@ class App extends React.Component{
   return (
     <div>
       <Router>
-      <Header currentUser={this.state.currentUser}/>
+      <Header />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/shop/hats" element={<HatsPage />} />
@@ -79,4 +60,7 @@ class App extends React.Component{
   }
 }
 
-export default App;
+const mapDisptachToProps  = dispatch => ({
+  setCurrentUser : user => dispatch(setCurrentUser(user))
+})
+export default connect(null,mapDisptachToProps)(App);
