@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selector';
+import CheckoutPage from './pages/checkout/checkout.component';
 const HatsPage = () => (
   <div>
     <h1>Hats Page</h1>
@@ -54,13 +55,12 @@ class App extends React.Component {
               <Route exact path="/" element={<HomePage />} />
               <Route exact path="/shop/hats" element={<HatsPage />} />
               <Route exact path="/shop" element={<ShopPage />} />
+              <Route exact path="/checkout" element={<CheckoutPage />} />
+           
             </Routes>
           </Router> :
           <Router>
-            {/* <Routes> */}
-              {/* <Route exact path="/" element={<SignInAndSignUpPage />} /> */}
-              <SignInAndSignUpPage />
-            {/* </Routes> */}
+               <SignInAndSignUpPage />
           </Router>
         }
       </div>
