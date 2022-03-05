@@ -2,7 +2,10 @@ import React from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from '../custom-button/custom-button.component'
 import {auth,signInWithGoogle} from '../../firebase/firebase.utils'
+import {signInWithFacebook} from '../../firebase/signin_with_facebook'
 import  "./sign-in.style.scss"
+import {NavLink} from 'react-router-dom';
+
 
 class SignIn extends React.Component {
     constructor(props){
@@ -29,7 +32,6 @@ class SignIn extends React.Component {
         const {name,value} =event.target;
         this.setState({[name]:value})
     }
-
     render(){
         return(
             <div className="sign-in">
@@ -50,12 +52,21 @@ class SignIn extends React.Component {
                     value={this.state.password} 
                     label='password'
                     required/>
+
+                    <div id="recptcha-container"></div>
                     <div className="buttons">
                     <CustomButton type="submit">Sign in</CustomButton>
                     <CustomButton onClick={signInWithGoogle}
+                    
                     isGoogleSignIn={true} >{' ' }Sign in with google{' '}</CustomButton>
                 </div>
+                <div className="buttons">
+                    <CustomButton onClick={signInWithFacebook} isFacebookSignIn={true}>Sign in with Facebook{' '}</CustomButton>
+                    <NavLink to='/loginwithphone_number' >
+                    <CustomButton >Login with Phone No. Otp</CustomButton></NavLink>
+                </div>
                 </form>
+                
             </div>
         )
     }

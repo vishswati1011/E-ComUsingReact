@@ -4,7 +4,7 @@
     height: 50px;
     letter-spacing: 0.5px;
     line-height: 50px;
-    padding: 0 35px 0 35px;
+    // padding: 0 35px 0 35px;
     font-size: 15px;
     background-color: black;
     color: white;
@@ -30,6 +30,16 @@
         border:none;
       }
     }
+
+    &.facebook-sign-in{
+      background-color: #4285f4;
+      color: white;
+
+      &:hover{
+        background-color: #4285f4;
+        border:none;
+      }
+    } 
     &.inverted {
       background-color: white;
       color: black;

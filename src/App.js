@@ -11,6 +11,7 @@ import { setCurrentUser } from './redux/user/user.action';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selector';
 import CheckoutPage from './pages/checkout/checkout.component';
+import LoginWithPhone from './components/sign-in/sign-in-with-phoneOtp'
 const HatsPage = () => (
   <div>
     <h1>Hats Page</h1>
@@ -56,11 +57,16 @@ class App extends React.Component {
               <Route exact path="/shop/hats" element={<HatsPage />} />
               <Route exact path="/shop" element={<ShopPage />} />
               <Route exact path="/checkout" element={<CheckoutPage />} />
-           
             </Routes>
           </Router> :
           <Router>
-               <SignInAndSignUpPage />
+            <Routes>
+            <Route exact path='/loginwithphone_number' element={<LoginWithPhone/>} />
+            <Route exact path="/" element={ <SignInAndSignUpPage />} />
+
+               {/* <SignInAndSignUpPage /> */}
+              </Routes>
+
           </Router>
         }
       </div>
