@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selector';
 import CheckoutPage from './pages/checkout/checkout.component';
 import LoginWithPhone from './components/sign-in/sign-in-with-phoneOtp'
+import CollectionPage from './pages/collection/collection.component'
 const HatsPage = () => (
   <div>
     <h1>Hats Page</h1>
@@ -54,7 +55,7 @@ class App extends React.Component {
             <Header />
             <Routes>
               <Route exact path="/" element={<HomePage />} />
-              <Route exact path="/shop/hats" element={<HatsPage />} />
+              <Route exact path="/shop/:collectionId" element={<CollectionPage />} />
               <Route exact path="/shop" element={<ShopPage />} />
               <Route exact path="/checkout" element={<CheckoutPage />} />
             </Routes>
