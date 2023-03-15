@@ -13,5 +13,4 @@ this project is bashed on e-commerce application
 here are variety of product to user select 
 and user can add product in cart
 with edit delete functionality also here 
-and used firebase for login signup
 also used redux to store data in app for state management. 
